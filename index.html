@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Chat App</title>
@@ -16,8 +16,6 @@
           id = 1 + Math.floor(Math.random() * 100);
           $("#user").val(id)
       });
-
-      
 
       channel = pusher.subscribe(`private-chat`);
       channel.bind('message', function(data) {
@@ -51,4 +49,41 @@
     <input type="text" id="message">
     <button onclick="sendMessage()">Send</button>
   </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+      
+      const pusher = new Pusher('e2740918c0fa18dc39a6', {
+        cluster: 'ap2',
+        authEndpoint: '/pusher/auth'
+      });
+      const channel = pusher.subscribe('private-chat');
+      channel.bind('message', function(data) {
+        const message = document.createElement('div');
+        message.innerText = data.message;
+        document.getElementById('messages').appendChild(message);
+      });
+      function sendMessage() {
+        const message = document.getElementById('message').value;
+        fetch('/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Chat App</h1>
+    <div id="messages"></div>
+    <input type="text" id="message">
+    <button onclick="sendMessage()">Send</button>
+  </body>
 </html>
+
