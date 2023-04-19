@@ -2,9 +2,9 @@
   "name": "chat-node",
   "version": "1.0.0",
   "description": "Chat app using node",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node server.js"
   },
   "author": "sunil",
   "license": "ISC",
